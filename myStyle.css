@@ -1,0 +1,458 @@
+@font-face {
+  font-family: Poppins;
+  src: url("./fonts/Poppins-Light.ttf");
+  font-style: normal;
+  font-weight: 300;
+}
+
+th {
+  background: #eee;
+  color: black;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 10px 10px;
+  /* vertical-align: 200px; */
+  border: 1px solid #e6eaed;
+  width: 100px;
+}
+
+tr,
+td {
+  text-align: center;
+  font-size: small;
+}
+
+tr:nth-child(even) {
+  background: #e6eaed;
+}
+
+.center {
+  margin: auto;
+  width: 96%;
+  /* padding: 10px; */
+}
+
+#custom-btn {
+  display: flex;
+  margin-left: 50%;
+  -ms-flex-align: center;
+  color: #0000;
+  text-align: center;
+  font-size: large;
+  background-color: black;
+}
+
+.xlsx {
+  background-color: #17a2b8;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  margin-right: 4px;
+  transition: 0.3s;
+}
+
+.xlsx:hover {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.csv {
+  background-color: #17a2b8;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  margin-right: 4px;
+  transition: 0.3s;
+}
+
+.csv:hover {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.txt {
+  background-color: #17a2b8;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  margin-right: 4px;
+  transition: 0.3s;
+}
+
+.txt:hover {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.csv-export-btn-div {
+  display: none;
+}
+
+/* Edit and delete button alignment */
+.actionOptions {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  align-items: flex-start;
+}
+thead,
+th {
+  text-align: center;
+  font-size: medium;
+}
+table,
+th,
+td {
+  border: 2px solid #e6eaed;
+}
+
+/* .modelBoxOuterLayer {
+  margin: auto;
+  padding: 10px;
+  width: 100%;
+  background: #f8f9fa;
+} */
+
+/* .modelBoxInnerLayer {
+  width: 60%;
+  height: 100%;
+  background-color: #e8ecf0;
+  margin-left: 20%;
+  border-radius: 10px;
+  box-shadow: -3px -3px 5px #ffffff70, 3px 3px 15px #00000090;
+} */
+
+#tableContainer {
+  display: table; /* IE8+ and all other modern browsers */
+  position: relative;
+  margin-left: auto;
+  margin-right: 11px;
+}
+
+.headerWithCsvName {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* #ImportAnotherFileField {
+  display: none;
+} */
+
+#csv-export-btn {
+  background-color: #1ca5b8;
+}
+
+.editbtn {
+  background-color: #66b2ff;
+  color: white;
+}
+#insert {
+  background-color: #33a64c;
+  color: white;
+}
+#csv-export-btn {
+  background-color: #1ca5b8;
+  color: white;
+}
+#uploadToServer-btn {
+  background-color: #1ca5b8;
+  color: white;
+}
+
+.main-table-container {
+  background: #e6eaed;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -3px -3px 5px #ffffff70, 3px 3px 15px #00000090;
+}
+
+.table-info-card {
+  background: #e6eaed;
+  border: none;
+  border-radius: 15px;
+  box-shadow: inset -2px -3px 2px #ffffff70, inset 1px 1px 15px #00000090;
+  font-family: "Poppins", sans-serif;
+}
+#csvFileInput {
+  background: #e6eaed;
+  width: fit-content;
+}
+
+#csvRoot {
+  table-layout: fixed;
+  width: 1125px;
+  /* Here width is the header width */
+}
+
+#csvRoot thead tr {
+  /* table-layout: fixed; */
+  width: 100%;
+}
+.tableCSV thead tr th {
+  width: 100px;
+  /* width: 200%; */
+}
+.dataTables_scrollHeadInner {
+  width: 900px;
+}
+
+#csvRoot td {
+  overflow-wrap: anywhere;
+}
+.dataTables_info {
+  display: none;
+}
+.buttons-csv {
+  background-color: #17a2b8;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  margin-right: 4px;
+  transition: 0.3s;
+}
+
+.buttons-csv:hover {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+/* .dt-buttons {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: black;
+  margin-left: 40%;
+  z-index: 10;
+} */
+
+.tableexport-caption {
+  display: grid;
+  background: #e6eaed;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -2px -3px 2px #ffffff70, 1px 1px 15px #00000090;
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+  width: 403px;
+  height: 150px;
+  margin-left: 50%;
+  z-index: 10;
+  transition: 0.3s;
+}
+.tableexport-caption button {
+  width: 200px;
+  margin-left: 25%;
+  margin-top: 5px;
+  align-items: center;
+  cursor: pointer;
+  /* padding-right: 25px;
+  padding-left: 25px; */
+}
+
+/* .tableexport-caption button :hover {
+  padding-right: 25px;
+  padding-left: 25px;
+  background: black;
+} */
+
+.saveFileName {
+  justify-content: center;
+  align-items: center;
+  margin-left: 25%;
+  width: 50%;
+  display: flex;
+  margin-bottom: 5px;
+}
+.saveFileName input {
+  margin-left: 6px;
+  border-radius: 10px;
+  border: 1px solid #e6eaed;
+}
+
+#donwload-Modal-Close-btn {
+  width: fit-content;
+  width: -moz-fit-content;
+  border: 0px;
+  background: none;
+  margin-top: 0;
+  margin-left: 91%;
+  cursor: pointer;
+}
+
+.tableexport-caption {
+  margin-left: 40%;
+}
+#closeMainModal {
+  width: fit-content;
+  border: 0px;
+  background: none;
+  margin-top: 5px;
+  margin-left: 97%;
+  cursor: pointer;
+}
+
+#mainModalContent {
+  width: fit-content;
+  width: -moz-fit-content;
+  margin-top: 5vh;
+  right: 12vh;
+  background: #e6eaed;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -3px -3px 5px #ffffff70, 3px 3px 15px #00000090;
+}
+
+#project_name_in_csv_uploader_input {
+  background: #e6eaed;
+  width: fit-content;
+}
+
+#modalButton {
+  display: none;
+}
+
+.insert-modal {
+  background: #ffffff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -3px -3px 5px #ffffff70, 3px 3px 15px #00000090;
+}
+
+.insert-table tr {
+  height: 50px;
+}
+.insert-table tr td:nth-child(1) {
+  padding-top: 4%;
+}
+
+.insert-table tr td input {
+  height: 40px;
+  border-radius: 5px;
+}
+
+.insert-table tr:nth-child(even) {
+  background-color: #e6eaed;
+}
+
+.edit-modal {
+  background: #ffffff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -3px -3px 5px #ffffff70, 3px 3px 15px #00000090;
+}
+
+.edit-table tr {
+  height: 50px;
+}
+.edit-table tr td:nth-child(1) {
+  padding-top: 4%;
+}
+
+.edit-table tr td input {
+  height: 40px;
+  border-radius: 5px;
+  overflow-wrap: anywhere;
+}
+
+.edit-table tr:nth-child(even) {
+  background-color: #e6eaed;
+}
+
+/* custom porject name input starts */
+
+.custom-field {
+  position: relative;
+  font-size: 14px;
+  padding-top: 20px;
+  /* margin-bottom: 5px; */
+}
+
+.custom-field input {
+  /* border: 2px solid red; */
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #e6eaed;
+  padding: 12px;
+  border-radius: 3px;
+  width: 600px;
+  outline: none;
+  font-size: 14px;
+}
+
+.custom-field .placeholder {
+  position: absolute;
+  left: 12px;
+  top: calc(50% + 10px);
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+}
+
+.custom-field input.dirty + .placeholder,
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder {
+  top: 10px;
+  font-size: 10px;
+  color: #222;
+}
+
+/* ONE */
+.custom-field.one input {
+  background: none;
+  border: 0.5px solid #999999;
+  transition: border-color 0.3s ease;
+}
+
+.custom-field.one input + .placeholder {
+  left: 8px;
+  padding-top: 0;
+  padding-bottom: 10px;
+  /* padding: 0px 0px 5px; */
+}
+
+.custom-field.one input.dirty,
+.custom-field.one input:valid,
+.custom-field.one input:focus {
+  /* border: 2px solid #222; */
+  border-color: #222;
+  transition-delay: 0.1s;
+}
+
+.custom-field.one input.dirty + .placeholder,
+.custom-field.one input:valid + .placeholder,
+.custom-field.one input:focus + .placeholder {
+  top: 15px;
+  font-size: 10px;
+  color: #222;
+  background: #e6eaed;
+}
+
+#project_name_in_csv_uploader_input {
+  width: 300px;
+  margin-top: 0;
+}
+
+#project_name_in_csv_uploader {
+  background: #e6eaed;
+  border: none;
+  border-radius: 10px;
+  box-shadow: -1px -1px 1px #ffffff70, 1px 1px 1px #ffffff70;
+}
+/* custom porject name input Ends */
+.VALIDATION_LOADING {
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  background-color: red;
+  z-index: 100;
+  right: 40%;
+  top: 30%;
+}
+.VALIDATION_LOADING_diplayNone {
+  display: none;
+}

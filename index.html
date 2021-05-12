@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./libs/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="myStyle.css" />
+
+    <title>CSV Editor with HTML, CSS & JavaScript</title>
+</head>
+
+<body>
+    <div id="VALIDATION_LOADING_DIV" class="VALIDATION_LOADING_diplayNone">
+        <br>
+        <br>
+        <h1></h1>Track ID Validation in Process! Please Wait....</h1>
+    </div>
+
+
+    <div id="ImportFileField">
+        <div class="row justify-content-center align-items-center pt-5">
+            <div class="col-3">
+                <label class="form-label" for="customFile">Import a CSV file</label>
+                <input type="file" class="form-control" id="csvFileInput" onchange="fileSelect(event)" />
+            </div>
+            <div class="col-3">
+                <button id="showModal" class="btn btn-primary">Start Tracking By CSV</button>
+
+                <button type="button" id="modalButton" class="btn btn-primary" data-toggle="modal"
+                    data-target=".bd-example-modal-lg">Start Tracking By CSV</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="mainModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <!-- Main content starts from here -->
+            <div id="mainModalContent" class="modal-content">
+                <div class="navBarOfTable ">
+
+                    <button id="closeMainModal"><span aria-hidden="true">&times;</span></button>
+
+                    <div class="headerWithCsvName">
+
+                        <h4 class="mt-0">&nbsp;&nbsp;CSV/Excelで機器情報アップロード機能</h4>
+                        <h4 class="mt-0" id='csvName'></h4>
+                    </div>
+                    <hr>
+
+                </div>
+
+                <div class="center " style="padding: 20px;">
+
+                    <div class=" csv-export-btn-div">
+
+
+                        <div id="project_name_in_csv_uploader"
+                            class="row justify-content-center align-items-center mb-5">
+                            <div class="col-3 justify-content-center"
+                                style='font-family: " Poppins", sans-serif; font-size: large;'>
+                                <span style="font-weight: 550;">Enter Project Name:</span>
+                            </div>
+                            <div class=" col-4 justify-content-center align-items-center">
+                                <label class="custom-field one" style="padding-top: 10px">
+                                    <input type="text" id="project_name_in_csv_uploader_input" required />
+                                    <span class="placeholder">Project Name</span>
+                                </label>
+                            </div>
+
+
+                        </div>
+                        <div class="card table-info-card mb-3 mt-2" style="margin: 4px;">
+                            <div class="row ml-2">
+                                <div class="card-body col-6 pt-4 pb-2">
+                                    Total Number of Devices: <span id="TotalNumberOfTrackID"></span>
+                                </div>
+                                <div class="card-body col-6 pt-4 pb-2">
+                                    Total Number of Empty Track ID: <span id="TotalNumberOfEmptyTrackID"></span>
+                                </div>
+                            </div>
+                            <div class="row ml-2">
+                                <div class="card-body col-6 pt-2 pb-2">
+                                    Total Number of Valid Track ID: <span id="TotalNumberOfValidTrackID"></span>
+                                </div>
+                                <div class="card-body col-6 pt-2 pb-2">
+                                    Total Number of Invalid Track ID: <span id="TotalNumberOfInvalidTrackID"></span>
+                                </div>
+                            </div>
+                            <div class="row ml-2">
+                                <div class="card-body col-6 pt-2 pb-4">
+                                    Total Auto generated Track ID: <span id="TotalNumberOfNewlyGeneratedTrackID"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="pr-2" id="tableContainer">
+                            <table id="csvRoot" class="tableCSV table table-striped table-bordered"></table>
+                            <!-- MODEL INSERT -->
+                            <!-- Download Upload and Insert New Row Button starts-->
+                            <div class="buttonPositionController mt-5">
+                                <button type="button" style="margin-right: 5px;" name="convert" id="csv-export-btn"
+                                    class="btn btn-sm" this.disabled="true;">
+                                    Download
+                                </button>
+
+                                <!-- Button trigger modal For Table Export in CSV ENDS -->
+
+                                <button type="button" style="margin-right: 5px;" name="convert" id="uploadToServer-btn"
+                                    class="btn btn-sm" this.disabled="true;">
+                                    Upload
+                                </button>
+                                <button type="button" style="margin-right: 5px;" name="AutoTrackIDGenerator-btn"
+                                    id="AutoTrackIDGenerator-btn" class="btn btn-sm" this.disabled="true;">
+                                    Auto Track ID Generator
+                                </button>
+                                <button type="button" style="margin-right: 5px;" hidden id="post_add_jichitai_codes_Button"
+                                    class="btn btn-sm" this.disabled="true;">
+                                    Check Validation
+                                </button>
+                                <button type="button" hidden style="margin-right: 5px;" id="TrackIDValidationCheck-btn"
+                                    class="btn btn-sm" this.disabled="true;">
+                                    Validation check
+                                </button>
+                                <button type="button" id="insert" class="btn btn-sm float-right mr-4"
+                                    data-toggle="modal" data-target="#insertNewRow">
+                                    Add a row
+                                </button>
+
+                            </div>
+                            <!-- Download Upload and Insert New Row Button ends-->
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Button trigger modal -->
+
+    <!-- INSERT Modal -->
+    <div class="modal fade" id="insertNewRow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content insert-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">New Information Insertion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="InsertForm">
+                        <table class="table table-hover insert-table">
+                            <tr>
+                                <td>TrackID </td>
+                                <td> <input type="text" name="TrackID" style="font-weight: bold;" class="from-control"
+                                        placeholder="TrackID"></td>
+                            </tr>
+                            <tr>
+                                <td>Device ID </td>
+                                <td> <input type="text" name="DeviceID" style="font-weight: bold;" class="from-control"
+                                        placeholder="Device ID">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Device Vendor </td>
+                                <td> <input type="text" name="DeviceVendor" style="font-weight: bold;"
+                                        class="from-control" placeholder="Device Vendor">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Device Model </td>
+                                <td> <input type="text" name="DeviceModel" style="font-weight: bold;"
+                                        class="from-control" placeholder="Device Model">
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>Device Serial </td>
+                                <td> <input type="text" name="DeviceSerial" style="font-weight: bold;"
+                                        class="from-control" placeholder="Device Serial">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Memo </td>
+                                <td> <input type="text" name="Memo" style="font-weight: bold;" class="from-control"
+                                        placeholder="Memo">
+                                </td>
+                            </tr>
+
+                        </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeInsertModal" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <input type="submit" name="submitTable" class="btn btn-primary" value="Save"></td>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal ENDS -->
+
+
+
+
+    <!-- Modal for editing starts -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content edit-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit existing table data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="panel-body">
+                        <form method="post" id="EditForm">
+                            <table class="table table-hover edit-table">
+                                <tr>
+                                    <td>TrackID </td>
+                                    <td>
+                                        <input type="text" name="TrackIDEdit" style="font-weight: bold;"
+                                            class="from-control" id="TrackIDEdit" placeholder="TrackID">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Device ID </td>
+                                    <td> <input type="text" name="DeviceIDEdit" style="font-weight: bold;"
+                                            class="from-control" id="DeviceIDEdit" placeholder="Device ID"></td>
+                                </tr>
+                                <tr>
+                                    <td>Device Vendor </td>
+                                    <td> <input type="text" name="DeviceVendorEdit" style="font-weight: bold;"
+                                            class="from-control" id="DeviceVendorEdit" placeholder="Device Vendor"></td>
+                                </tr>
+                                <tr>
+                                    <td>Device Model </td>
+                                    <td> <input type="text" name="deviceModelEdit" style="font-weight: bold;"
+                                            class="from-control" id="deviceModelEdit" placeholder="Device Model"></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Device Serial </td>
+                                    <td> <input type="text" name="DeviceSerialEdit" style="font-weight: bold;"
+                                            class="from-control" id="DeviceSerialEdit" placeholder="Device Serial">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Memo </td>
+                                    <td> <input type="text" name="MemoEdit" style="font-weight: bold;"
+                                            class="from-control" id="MemoEdit" placeholder="Memo">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editModalClose" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <input type="submit" name="submitTableEdit" class="btn btn-primary" value="Update">
+
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- MODEL FOR EDITING ENDS -->
+
+
+
+
+
+
+
+
+    <!-- Here are the CDNs needed -->
+
+
+    <script src="./libs/jquery-3.6.0.min.js"></script>
+    <script src="./libs/bootstrap.min.js"></script>
+    <script src="./libs/jquery.dataTables.min.js"></script>
+    <script src="./libs/dataTables.bootstrap4.min.js"></script>
+    <script src="./libs/FileSaver.min.js"></script>
+    <script src="./libs/xlsx.full.min.js"></script>
+    <script src="./libs/tableexport.min.js"></script>
+    <script src="./libs/papaparse.min.js"></script>
+    <script src="./test.js"></script>
+
+    <!-- Here are the custom JS file  -->
+
+
+    <script type="module" src="./js/CSVReadToTable.js"></script>
+    <script src="./js/CSV_Modifier.js"></script>
+
+
+</body>
+
+</html>
